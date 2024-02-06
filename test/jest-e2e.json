@@ -16,6 +16,8 @@
     "@app/helpers/(.*)": "<rootDir>/../libs/helpers/src/$1",
     "@app/helpers": "<rootDir>/../libs/helpers/src",
     "@app/core/(.*)": "<rootDir>/../libs/core/src/$1",
-    "@app/core": "<rootDir>/../libs/core/src"
+    "@app/core": "<rootDir>/../libs/core/src",
+    "@app/models/(.*)": "<rootDir>/../libs/models/src/$1",
+    "@app/models": "<rootDir>/../libs/models/src"
   }
 }

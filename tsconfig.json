@@ -35,6 +35,12 @@
       ],
       "@app/core/*": [
         "libs/core/src/*"
+      ],
+      "@app/models": [
+        "libs/models/src"
+      ],
+      "@app/models/*": [
+        "libs/models/src/*"
       ]
     }
   }
