@@ -1,4 +1,4 @@
-import { AuthUser, UserRole } from '@app/types';
+import { AuthUser, UserInterface, UserRole } from '@app/types';
 import { Entity } from '@app/core';
 import { compare, genSalt, hash } from 'bcrypt';
 import { SALT_ROUNDS } from './guest.constants';
@@ -7,12 +7,8 @@ export class GuestEntity implements AuthUser, Entity<string> {
   public id?: string;
   public email: string;
   public name: string;
-  public role: UserRole;
+  public role: string;
   public passwordHash: string;
-
-  constructor(user: AuthUser) {
-    this.populate(user);
-  }
 
   public toPOJO() {
     return {
@@ -24,10 +20,12 @@ export class GuestEntity implements AuthUser, Entity<string> {
     };
   }
 
-  public populate(data: AuthUser): void {
+  public populate(data: AuthUser): GuestEntity {
     this.email = data.email;
     this.name = data.name;
     this.role = data.role;
+
+    return this;
   }
 
   public async setPassword(password: string): Promise<GuestEntity> {
@@ -38,5 +36,9 @@ export class GuestEntity implements AuthUser, Entity<string> {
 
   public async comparePassword(password: string): Promise<boolean> {
     return compare(password, this.passwordHash);
+  }
+
+  static fromObject(data: UserInterface): GuestEntity {
+    return new GuestEntity().populate(data);
   }
 }

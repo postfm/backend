@@ -25,7 +25,7 @@ export class AuthUserService {
     const guest = {
       email,
       name,
-      role: UserRole.User,
+      role: 'admin',
       passwordHash: '',
     };
 
@@ -35,7 +35,9 @@ export class AuthUserService {
       throw new ConflictException(AUTH_USER_EXISTS);
     }
 
-    const userEntity = await new GuestEntity(guest).setPassword(password);
+    const userEntity = await new GuestEntity()
+      .populate(guest)
+      .setPassword(password);
 
     return this.guestRepository.save(userEntity);
   }

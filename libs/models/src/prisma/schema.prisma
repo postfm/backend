@@ -17,7 +17,6 @@ model Users {
   createdAt    DateTime @default(now()) @map("create_at")
   updatedAt    DateTime @updatedAt @map("update_at")
 
-  @@index([name])
   @@map("users")
 }
 
@@ -33,6 +32,5 @@ model Products {
   createdAt   DateTime @default(now()) @map("create_at")
   updatedAt   DateTime @updatedAt @map("update_at")
 
-  @@index([name])
   @@map("products")
 }
