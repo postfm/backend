@@ -1,0 +1,27 @@
+# Создание нового пользователя
+POST http://localhost:3000/guitar/auth-user/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Keks",
+  "email": "user@notfound.local",
+  "password": "123456"
+}
+
+###
+
+# Получиние информации о пользователе по ID
+GET http://localhost:3000/guitar/auth-user/c235df82-a629-436e-b496-3922f2d8b746 HTTP/1.1
+
+###
+
+# Аутентификация пользователя
+POST http://localhost:3000/guitar/auth-user/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound.local",
+  "password": "123456"
+}
+
+###
