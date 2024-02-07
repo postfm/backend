@@ -25,6 +25,7 @@ export class GuestEntity implements AuthUser, Entity<string> {
   }
 
   public populate(data: AuthUser): GuestEntity {
+    this.id = data.id;
     this.email = data.email;
     this.name = data.name;
     this.role = data.role;

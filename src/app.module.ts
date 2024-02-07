@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { UsersModule } from './users/users.module';
-import { jwtConfig } from '@app/config';
+import { applicationConfig, jwtConfig } from '@app/config';
 
 const ENV_USER_FILE_PATH = 'src/.env';
 
@@ -13,7 +13,7 @@ const ENV_USER_FILE_PATH = 'src/.env';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [jwtConfig],
+      load: [applicationConfig, jwtConfig],
       envFilePath: ENV_USER_FILE_PATH,
     }),
     ProductsModule,

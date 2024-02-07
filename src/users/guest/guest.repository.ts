@@ -53,6 +53,7 @@ export class GuestRepository extends BasePostgresRepository<
         email: email,
       },
     });
+
     return this.createEntityFromDocument(document);
   }
 }

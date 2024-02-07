@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "name": "John",
-  "email": "keks@notfound.local",
+  "email": "keks11@notfound.local",
   "password": "123456"
 }
 
@@ -12,6 +12,7 @@ Content-Type: application/json
 
 # Получиние информации о пользователе по ID
 GET http://localhost:4000/guitar/auth-user/64274579-9211-48f4-8234-ae281e371d07 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhMmUxYzFjMy1jNjA4LTRjMzYtYjI2MS02MGJmZjgwNDE5NTciLCJlbWFpbCI6Imtla3MxQG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IkpvaG4iLCJpYXQiOjE3MDczMDk0ODJ9._Wi02vF8UvVpsqXuAv_QlUOzxQvEC0tjWKZT4mhNADY
 
 ###
 
@@ -20,7 +21,7 @@ POST http://localhost:4000/guitar/auth-user/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@notfound.local",
+  "email": "keks1@notfound.local",
   "password": "123456"
 }
 
