@@ -95,7 +95,8 @@
       "^@app/helpers(|/.*)$": "<rootDir>/libs/helpers/src/$1",
       "^@app/core(|/.*)$": "<rootDir>/libs/core/src/$1",
       "^@app/models(|/.*)$": "<rootDir>/libs/models/src/$1",
-      "^@app/config/users(|/.*)$": "<rootDir>/libs/config/users/src/$1"
+      "^@app/config/users(|/.*)$": "<rootDir>/libs/config/users/src/$1",
+      "^@app/config(|/.*)$": "<rootDir>/libs/config/src/$1"
     }
   }
 }
