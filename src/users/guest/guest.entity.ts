@@ -10,6 +10,10 @@ export class GuestEntity implements AuthUser, Entity<string> {
   public role: string;
   public passwordHash: string;
 
+  constructor(user: AuthUser) {
+    this.populate(user);
+  }
+
   public toPOJO() {
     return {
       id: this.id,
@@ -24,6 +28,7 @@ export class GuestEntity implements AuthUser, Entity<string> {
     this.email = data.email;
     this.name = data.name;
     this.role = data.role;
+    this.passwordHash = data.passwordHash;
 
     return this;
   }
@@ -39,6 +44,6 @@ export class GuestEntity implements AuthUser, Entity<string> {
   }
 
   static fromObject(data: UserInterface): GuestEntity {
-    return new GuestEntity().populate(data);
+    return new GuestEntity(data);
   }
 }

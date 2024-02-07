@@ -6,7 +6,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { GuestRepository } from '../guest/guest.repository';
-import { UserRole } from '@app/types';
 import { GuestEntity } from '../guest/guest.entity';
 import {
   AUTH_USER_EXISTS,
@@ -35,15 +34,14 @@ export class AuthUserService {
       throw new ConflictException(AUTH_USER_EXISTS);
     }
 
-    const userEntity = await new GuestEntity()
-      .populate(guest)
-      .setPassword(password);
+    const userEntity = await new GuestEntity(guest).setPassword(password);
 
     return this.guestRepository.save(userEntity);
   }
 
   public async verifyUser(dto: LoginUserDto) {
     const { email, password } = dto;
+
     const existUser = await this.guestRepository.findByEmail(email);
 
     if (!existUser) {

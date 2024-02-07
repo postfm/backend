@@ -11,7 +11,7 @@ Content-Type: application/json
 ###
 
 # Получиние информации о пользователе по ID
-GET http://localhost:3000/guitar/auth-user/c235df82-a629-436e-b496-3922f2d8b746 HTTP/1.1
+GET http://localhost:3000/guitar/auth-user/64274579-9211-48f4-8234-ae281e371d07 HTTP/1.1
 
 ###
 
