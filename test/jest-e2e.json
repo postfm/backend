@@ -18,6 +18,8 @@
     "@app/core/(.*)": "<rootDir>/../libs/core/src/$1",
     "@app/core": "<rootDir>/../libs/core/src",
     "@app/models/(.*)": "<rootDir>/../libs/models/src/$1",
-    "@app/models": "<rootDir>/../libs/models/src"
+    "@app/models": "<rootDir>/../libs/models/src",
+    "@app/config/users/(.*)": "<rootDir>/../libs/config/users/src/$1",
+    "@app/config/users": "<rootDir>/../libs/config/users/src"
   }
 }
