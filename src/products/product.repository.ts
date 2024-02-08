@@ -6,6 +6,10 @@ import { PrismaClientService } from '@app/models';
 import { Prisma } from '@prisma/client';
 import { ProductQuery } from './query/product.query';
 import { PaginationResult } from '@app/types';
+import {
+  DEFAULT_SORTING_TYPE,
+  DEFAULT_SORT_DIRECTION,
+} from './product.constants';
 
 @Injectable()
 export class ProductRepository extends BasePostgresRepository<
@@ -89,9 +93,25 @@ export class ProductRepository extends BasePostgresRepository<
     const take = query?.limit;
     const where: Prisma.ProductsWhereInput = {};
     const orderBy: Prisma.ProductsOrderByWithRelationInput = {};
+    const sortingType = query?.sortingType
+      ? query.sortingType
+      : DEFAULT_SORTING_TYPE;
+    const sortDirection = query?.sortDirection
+      ? query.sortDirection
+      : DEFAULT_SORT_DIRECTION;
+
+    orderBy[sortingType] = sortDirection;
 
     if (query?.sortDirection) {
       orderBy.createdAt = query.sortDirection;
+    }
+
+    if (query?.type) {
+      where.type = query.type;
+    }
+
+    if (query?.strings) {
+      where.strings = query.strings;
     }
 
     const [records, postCount] = await Promise.all([

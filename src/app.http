@@ -1,0 +1,101 @@
+####################################################################################################
+############################## Сервис пользователей #################################################
+####################################################################################################
+@userId={{register.response.body.id}}
+@email={{register.response.body.email}}
+@AToken={{login.response.body.accessToken}}
+
+
+
+# Создание нового пользователя
+# @name register
+POST http://localhost:4000/guitar/auth-user/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "John",
+  "email": "keks11@notfound.local",
+  "password": "123456"
+}
+
+###
+
+# Получиние информации о пользователе по ID
+GET http://localhost:4000/guitar/auth-user/{{userId}} HTTP/1.1
+Authorization: Bearer {{AToken}}
+###
+
+# Аутентификация пользователя
+# @name login
+POST http://localhost:4000/guitar/auth-user/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "keks11@notfound.local",
+  "password": "123456"
+}
+
+####################################################################################################
+############################## Сервис публикаций ####################################################
+####################################################################################################
+@productId={{createProduct.response.body.productId}}
+###
+
+# Создание карточки нового товара
+# @name createProduct
+POST http://localhost:4000/guitar/products HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{AToken}}
+
+{
+  "name": "golden",
+  "description": "Usque clementia talio dolorum stipes tredecim veniam. Tonsor absque volutabrum adulescens thymum demonstro degusto. Comes maiores inventore usus.\nVelit cuius ascit solium. Terminatio repellendus curatio amo. Usitas sol curto pectus absens provident ultio.\nPossimus crustulum stella delibero versus curis varietas usus. Maxime vulpes patria arcesso delicate decipio venia cupressus. Cilicium illo demum canonicus.",
+  "photo": "../../../../src/assets/catalog-product-0.png",
+  "type": "акустика",
+  "article": "3j7xNF1eQVg11RN0000",
+  "strings": 12,
+  "price": 1000000
+}
+
+
+
+###
+
+# Получить все товары
+
+GET http://localhost:4000/guitar/products HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Получить товары с фильтром
+
+GET http://localhost:4000/guitar/products?limit=2&sortDirection=desc HTTP/1.1
+Content-Type: application/json
+
+###
+
+# Получение детальной информации по товару
+GET http://localhost:4000/guitar/products/{{productId}} HTTP/1.1
+Authorization: Bearer {{AToken}}
+Content-Type: application/json
+
+###
+
+# Удаление карточки товара
+DELETE http://localhost:3000/guitar/products/{{productId}} HTTP/1.1
+Authorization: Bearer {{AToken}}
+
+###
+
+# Обновление карточки товара
+PATCH http://localhost:3000/guitar/products/{{productId}} HTTP/1.1
+Authorization: Bearer {{AToken}}
+Content-Type: application/json
+
+{
+  "name": "golden",
+  "price": 1000000
+}
+
+###

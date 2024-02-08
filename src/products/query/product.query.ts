@@ -3,6 +3,7 @@ import { IsArray, IsIn, IsNumber, IsOptional, IsUUID } from 'class-validator';
 import {
   DEFAULT_PAGE_COUNT,
   DEFAULT_POST_COUNT_LIMIT,
+  DEFAULT_SORTING_TYPE,
   DEFAULT_SORT_DIRECTION,
 } from '../product.constants';
 import { SortDirection } from '@app/types';
@@ -25,4 +26,14 @@ export class ProductQuery {
   @Transform(({ value }) => +value || DEFAULT_PAGE_COUNT)
   @IsOptional()
   public page: number = DEFAULT_PAGE_COUNT;
+
+  @Transform(({ value }) => value || DEFAULT_SORTING_TYPE)
+  @IsOptional()
+  public sortingType: string;
+
+  @IsOptional()
+  public type: string;
+
+  @IsOptional()
+  public strings: number;
 }
