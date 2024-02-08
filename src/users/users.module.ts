@@ -5,9 +5,10 @@ import { AuthUserController } from './auth-user/auth-user.controller';
 import { AuthUserService } from './auth-user/auth-user.service';
 import { JwtService } from '@nestjs/jwt';
 import { NotifyModule } from './notify/notify.module';
+import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 
 @Module({
-  imports: [AuthUserModule, GuestModule, NotifyModule],
+  imports: [AuthUserModule, GuestModule, NotifyModule, RefreshTokenModule],
   controllers: [AuthUserController],
   providers: [AuthUserService, JwtService],
 })

@@ -7,3 +7,5 @@ export * from './token-payload.interface';
 export * from './token.interface';
 export * from './subscriber.interface';
 export * from './rabbit-routing.enum';
+export * from './jwt-token.interface';
+export * from './refresh-token-payload.interface';
