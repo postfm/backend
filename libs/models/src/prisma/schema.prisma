@@ -34,13 +34,3 @@ model Products {
 
   @@map("products")
 }
-
-model Tokens {
-  id        String   @id @default(uuid())
-  createdAt DateTime
-  tokenId   String   @map("token_id")
-  userId    String   @map("user_id")
-  expiresIn DateTime
-
-  @@map("tokens")
-}

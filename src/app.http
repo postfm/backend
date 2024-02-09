@@ -4,7 +4,7 @@
 @userId={{register.response.body.id}}
 @email={{register.response.body.email}}
 @AToken={{login.response.body.accessToken}}
-@RToken={{login.response.body.refreshToken}}
+
 
 
 # Создание нового пользователя
@@ -34,16 +34,6 @@ Content-Type: application/json
   "email": "keks11@notfound.local",
   "password": "123456"
 }
-
-###
-
-
-# Получение пары токенов
-POST http://localhost:3333/api/auth/refresh HTTP/1.1
-Authorization: Bearer {{RToken}}
-
-###
-
 
 ####################################################################################################
 ############################## Сервис публикаций ####################################################
