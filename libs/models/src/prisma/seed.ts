@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 const MAX_QUANTITY_PRODUCTS = 100;
 
 function getPhotoLink(number: number): string {
-  return `../../../../src/assets/catalog-product-${number}.png`;
+  return `img/content/catalog-product-${number}.png`;
 }
 
 function getType(number: number): string {

@@ -19,6 +19,7 @@ import { LoginUserDto } from './dto/login.user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Token, TokenPayload, UserInterface } from '@app/types';
 import { ConfigService } from '@nestjs/config';
+import { UserRdo } from './rdo/user.rdo';
 
 @Injectable()
 export class AuthUserService {
@@ -89,6 +90,22 @@ export class AuthUserService {
       this.logger.error('[Token generation error]: ' + error.message);
       throw new HttpException(
         'Ошибка при создании токена.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  public async validateUserToken(token: string): Promise<UserRdo> {
+    const secretOrKey = this.configService.get<string>('jwt.accessTokenSecret');
+    try {
+      const isValid = this.jwtService.verify(token, {
+        secret: secretOrKey,
+      });
+      return isValid;
+    } catch (error) {
+      this.logger.error('[Token validation error]: ' + error.message);
+      throw new HttpException(
+        'Ошибка при валидации токена.',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

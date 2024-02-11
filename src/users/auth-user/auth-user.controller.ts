@@ -30,4 +30,10 @@ export class AuthUserController {
     const existUser = await this.authUserService.getUser(id);
     return fillDto(UserRdo, existUser.toPOJO());
   }
+
+  @Get('validate/:token')
+  public async validate(@Param('token') token: string) {
+    const existsUser = await this.authUserService.validateUserToken(token);
+    return fillDto(UserRdo, existsUser);
+  }
 }

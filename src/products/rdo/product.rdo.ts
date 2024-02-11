@@ -21,4 +21,10 @@ export class ProductRdo {
 
   @Expose()
   price: number;
+
+  @Expose()
+  createdAt: Date;
+
+  @Expose()
+  updatedAt: Date;
 }
