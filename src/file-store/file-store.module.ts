@@ -14,7 +14,6 @@ const SERVE_ROOT = '/store';
         const rootPath = configService.get<string>(
           'file-store.uploadDirectory',
         );
-        console.log('rootPath', rootPath);
 
         return [
           {

@@ -8,6 +8,7 @@ import { FileStoreConfig } from '@app/config';
 import { randomUUID } from 'node:crypto';
 import { extension } from 'mime-types';
 import * as dayjs from 'dayjs';
+import { unlink } from 'node:fs';
 
 @Injectable()
 export class FileStoreService {
@@ -44,5 +45,15 @@ export class FileStoreService {
       this.logger.error(`Error while saving file: ${error.message}`);
       throw new Error(`Can't save file`);
     }
+  }
+
+  public deleteFile(file: string): void {
+    unlink(file, (err) => {
+      if (err) {
+        this.logger.error(`Error while saving file: ${err.message}`);
+      } else {
+        console.log(`${file} was deleted`);
+      }
+    });
   }
 }
