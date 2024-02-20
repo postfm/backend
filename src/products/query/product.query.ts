@@ -21,13 +21,12 @@ export class ProductQuery {
 
   @IsIn(Object.values(SortDirection))
   @IsOptional()
-  public sortDirection: SortDirection = DEFAULT_SORT_DIRECTION;
+  public sortDirection: SortDirection;
 
   @Transform(({ value }) => +value || DEFAULT_PAGE_COUNT)
   @IsOptional()
   public page: number = DEFAULT_PAGE_COUNT;
 
-  @Transform(({ value }) => value || DEFAULT_SORTING_TYPE)
   @IsOptional()
   public sortingType: string;
 

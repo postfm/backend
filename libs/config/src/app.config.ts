@@ -26,8 +26,6 @@ function validateConfig(config: ApplicationConfig): void {
 }
 
 function getConfig(): ApplicationConfig {
-  console.log(process.env);
-
   const config: ApplicationConfig = {
     environment: process.env.NODE_ENV as Environment,
     port: parseInt(process.env.PORT || `${DEFAULT_PORT}`, 10),

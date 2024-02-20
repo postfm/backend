@@ -4,7 +4,7 @@ import { FileStoreController } from './file-store.controller';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigService } from '@nestjs/config';
 
-const SERVE_ROOT = '/static';
+const SERVE_ROOT = '/store';
 
 @Module({
   imports: [
@@ -12,8 +12,10 @@ const SERVE_ROOT = '/static';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const rootPath = configService.get<string>(
-          'application.uploadDirectory',
+          'file-store.uploadDirectory',
         );
+        console.log('rootPath', rootPath);
+
         return [
           {
             rootPath,

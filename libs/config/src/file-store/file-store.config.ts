@@ -38,4 +38,4 @@ function getConfig(): FileStoreConfig {
   return config;
 }
 
-export default registerAs('application', getConfig);
+export default registerAs('file-store', getConfig);

@@ -14,7 +14,7 @@ export class FileStoreController {
   constructor(private readonly fileStoreService: FileStoreService) {}
 
   @Post('/upload')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('photo'))
   public async uploadFile(@UploadedFile() file: Express.Multer.File) {
     return this.fileStoreService.saveFile(file);
   }

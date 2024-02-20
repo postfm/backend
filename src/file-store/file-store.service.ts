@@ -5,9 +5,9 @@ import { ensureDir } from 'fs-extra';
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { FileStoreConfig } from '@app/config';
-import dayjs from 'dayjs';
 import { randomUUID } from 'node:crypto';
 import { extension } from 'mime-types';
+import * as dayjs from 'dayjs';
 
 @Injectable()
 export class FileStoreService {

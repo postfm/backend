@@ -102,10 +102,6 @@ export class ProductRepository extends BasePostgresRepository<
 
     orderBy[sortingType] = sortDirection;
 
-    if (query?.sortDirection) {
-      orderBy.createdAt = query.sortDirection;
-    }
-
     if (query?.type) {
       where.type = query.type;
     }

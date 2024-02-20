@@ -4,13 +4,13 @@ info:
   description: Список ресурсов и маршрутов сервера Шесть городов
   license:
     name: MIT
-    url: https://opensource.org/locense/MIT
+    url: https://opensource.org/license/MIT
   version: "1.0.0"
 tags:
-  - name: offers
-    description: Действия с предложениями.
-  - name: reviews
-    description: Действия с комментариями.
+  - name: products
+    description: Действия с карточками товара.
+  - name: product
+    description: Действия с отдельным товаром.
   - name: users
     description: Действия с пользователями.
 
@@ -98,55 +98,27 @@ paths:
         "204":
           description: Сеанс завершен.
 
-  /offers/createOffer:
+
+  /products/{productId}:
     post:
       tags:
-        - offers
-      summary: Создать предложение
-      description: Создает новое предложение от авторизованного пользователя.
-
-      requestBody:
-        description: Информация для создания нового предложения
-        content:
-          application/json:
-            schema:
-              $ref: '#components/schemas/createOffer'
-        required: true
-
-      responses:
-        "201":
-          description: Предложение создано. Объект предложения.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offer'
-
-        "400":
-          description: Неправильные данные по предложению
-
-        "401":
-          description: Создание предложения возможно только для зарегистрированных пользователей.
-
-  /offers/{offerId}/update:
-    post:
-      tags:
-        - offers
-      summary: Редактировать предложение
-      description: Изменяет существующее предложение от авторизованного пользователя.
+        - products
+      summary: Редактировать карточку
+      description: Изменяет существующую карточку от авторизованного пользователя.
 
       parameters:
-        - name: offerId
+        - name: productId
           in: path
           schema:
             type: string
           required: true
 
       requestBody:
-        description: Информация для обновления предложения
+        description: Информация для обновления карточки
         content:
           application/json:
             schema:
-              $ref: '#components/schemas/createOffer'
+              $ref: '#components/schemas/addItem'
         required: true
 
       responses:
@@ -155,23 +127,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offer'
+                $ref: '#/components/schemas/product'
 
         "400":
-          description: Неправильные данные по предложению
+          description: Неправильные данные по товару
 
         "401":
-          description: Обновление предложения возможно только для зарегистрированных пользователей.
+          description: Обновление карточки возможно только для зарегистрированных пользователей.
 
-  /offers/{offerId}/delete:
+  /products/{offerId}:
     delete:
       tags:
-        - offers
-      summary: Удалить предложение
-      description: Удаляет существующее предложение от авторизованного пользователя.
+        - products
+      summary: Удалить товар
+      description: Удаляет существующую карточку от авторизованного пользователя.
 
       parameters:
-        - name: offerId
+        - name: productId
           in: path
           schema:
             type: string
@@ -179,27 +151,27 @@ paths:
 
       responses:
         "204":
-          description: Предложение удалено.
+          description: Товар удален.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offer'
+                $ref: '#/components/schemas/product'
 
         "401":
-          description: Удаление предложения возможно только для зарегистрированных пользователей.
+          description: Удаление товара возможно только для зарегистрированных пользователей.
 
         "404":
           description: Запрашиваемые данные не найдены
 
-  /offers:
+  /products:
     get:
       tags:
-        - offers
-      summary: Получить список предложений
-      description: Возвращает массив предложений. Каждое предложение описано в виде объекта.
+        - products
+      summary: Получить список товаров
+      description: Возвращает массив товаров. Каждый товар описан в виде объекта.
 
       parameters:
-        - name: quantityOffer
+        - name: totalItems
           in: path
           schema:
             type: number
@@ -207,24 +179,24 @@ paths:
 
       responses:
         "200":
-          description: Массив предложений.
+          description: Массив товаров.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offers'
+                $ref: '#/components/schemas/products'
 
         "404":
           description: Запрашиваемые данные не найдены
 
-  /offers{offerId}:
+  /products{productId}:
     get:
       tags:
-        - offers
-      summary: Получить предложение
-      description: Возвращает предложение с идентификатором offerId
+        - products
+      summary: Получить карточку товара
+      description: Возвращает карточку с идентификатором productId
 
       parameters:
-        - name: offerId
+        - name: productId
           in: path
           schema:
             type: string
@@ -232,135 +204,15 @@ paths:
 
       responses:
         "200":
-          description: Объект предложения.
+          description: Объект товара.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offer'
+                $ref: '#/components/schemas/product'
 
         "404":
-          description: Предложение не найдено
+          description: Товар не найден
 
-  /favorite:
-    get:
-      tags:
-        - offers
-      summary: Получить список избранных предложений
-      description: Возвращает массив предложений, добавленных в избранное.
-
-      responses:
-        "200":
-          description: Массив предложений.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offers'
-
-        "401":
-          description: Просмотр избранных предложений возможен только для зарегистрированных пользователей.
-
-  /favorite/{offerId}/{status}:
-    post:
-      tags:
-        - offers
-      summary: Изменить статус избранного предложения
-      description: Возвращает предложение с идентификатором offerId с актуальным состоянием поля isFavorite.
-
-      parameters:
-        - name: offerId
-          in: path
-          schema:
-            type: string
-          required: true
-        - name: status
-          in: path
-          schema:
-            type: number
-          required: true
-
-      responses:
-        "200":
-          description: Объект предложения.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offer'
-
-        "201":
-          description: Объект предложения.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/offer'
-
-        "400":
-          description: Ошибка тела запроса.
-
-        "401":
-          description: Пользователь не авторизован.
-
-        "404":
-          description: Предложение не найдено.
-
-        "409":
-          description: Приложение уже добавлено в избранное.
-
-  /reviews/{offerId}:
-    get:
-      tags:
-        - reviews
-
-      summary: Получить список комментариев
-      description: Возвращает список комментариев для предложения с идентификатором offerId.
-
-      parameters:
-        - name: offerId
-          in: path
-          schema:
-            type: string
-          required: true
-
-      responses:
-        "200":
-          description: Массив комментариев.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/reviews'
-
-        "404":
-          description: Предложение не найдено
-
-    post:
-      tags:
-        - reviews
-
-      summary: Добавить новый комментарий
-      description: Добавляет новый комментарий для предложения с идентификатором offerId.
-
-      parameters:
-        - name: offerId
-          in: path
-          schema:
-            type: string
-          required: true
-
-      responses:
-        "200":
-          description: Объект с новым комментарием.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/review'
-
-        "400":
-          description: Ошибка тела запроса
-
-        "401":
-          description: Пользователь не авторизован
-
-        "404":
-          description: Предложение не найдено
 
 components:
   schemas:
@@ -368,45 +220,29 @@ components:
      type: object
 
      properties:
-        username:
+        name:
           type: string
           example: John
 
         email:
           type: string
           example: mail@mail.com
-
-        avatar:
-          type: string
-          example: avatar.jpg
 
         password:
           type: string
           example: 123456
 
-        isPro:
-         type: boolean
-         example: false
-
     user:
      type: object
 
      properties:
-        username:
+        name:
           type: string
           example: John
 
         email:
           type: string
           example: mail@mail.com
-
-        avatar:
-          type: string
-          example: avatar.jpg
-
-        isPro:
-         type: boolean
-         example: false
 
         token:
           type: string
@@ -424,11 +260,11 @@ components:
           type: string
           example: 123456
 
-    createOffer:
+    addItem:
      type: object
 
      properties:
-        title:
+        name:
           type: string
           example: Nice, cozy, warm big bed apartment
         description:
@@ -437,69 +273,28 @@ components:
         date:
           type: string
           example: ISODate('2023-10-04T19:37:06.828Z')
-        city:
-          type: object
-          example:
-            name:
-            type: string
-            example: Brussels
-            location:
-              type: object
-              example:
-                latitude:
-                  type: number
-                  example: 50.846557
-                longitude:
-                  type: number
-                  example: 4.351697
-        imagePreview:
+        photo:
           type: string
           example: image-9.jpg
-        images:
-          type: array
-          example:  ['image-9.jpg','image-8.jpg','image-5.jpg','image-6.jpg','image-7.jpg','image-12.jpg']
-        isPremium:
-          type: boolean
-          example: false
-        isFavorite:
-          type: boolean
-          example: false
-        rating:
-          type: number
-          example: 3.2
         type:
           type: string
-          example: room
-        bedrooms:
+          example: guitar
+        strings:
           type: number
-          example: 3
-        maxAdults:
-          type: number
-          example: 3
+          example: 4
+        article:
+          type: string
+          example: WGF23HF
         price:
           type: number
-          example: 52866
-        goods:
-          type: array
-          example: ['Washer','Towels','Fridge']
-        hostId:
-          type: string
-          example: 65245ce712734e5eb67b7410
-        location:
-          type: object
-          example:
-            latitude:
-              type: number
-              example: 50.934361
-            longitude:
-              type: number
-              example: 6.943974
+          example: 100000
+        
 
-    offer:
+    product:
      type: object
 
      properties:
-        title:
+        name:
           type: string
           example: Nice, cozy, warm big bed apartment
         description:
@@ -508,153 +303,48 @@ components:
         date:
           type: string
           example: ISODate('2023-10-04T19:37:06.828Z')
-        city:
-          type: object
-          example:
-            name:
-            type: string
-            example: Brussels
-            location:
-              type: object
-              example:
-                latitude:
-                  type: number
-                  example: 50.846557
-                longitude:
-                  type: number
-                  example: 4.351697
-        imagePreview:
+        photo:
           type: string
           example: image-9.jpg
-        images:
-          type: array
-          example:  ['image-9.jpg','image-8.jpg','image-5.jpg','image-6.jpg','image-7.jpg','image-12.jpg']
-        isPremium:
-          type: boolean
-          example: false
-        isFavorite:
-          type: boolean
-          example: false
-        rating:
-          type: number
-          example: 3.2
         type:
           type: string
-          example: room
-        bedrooms:
+          example: guitar
+        strings:
           type: number
-          example: 3
-        maxAdults:
-          type: number
-          example: 3
+          example: 4
+        article:
+          type: string
+          example: WGF23HF
         price:
           type: number
-          example: 52866
-        goods:
-          type: array
-          example: ['Washer','Towels','Fridge']
-        hostId:
-          type: string
-          example: 65245ce712734e5eb67b7410
-        reviewCount:
-          type: number
-          example: 1
-        location:
-          type: object
-          example:
-            latitude:
-              type: number
-              example: 50.934361
-            longitude:
-              type: number
-              example: 6.943974
+          example: 100000
 
-    offers:
+    products:
      type: array
 
      properties:
-        title:
+        name:
           type: string
           example: Nice, cozy, warm big bed apartment
+        description:
+          type: string
+          example: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!'
         date:
           type: string
           example: ISODate('2023-10-04T19:37:06.828Z')
-        city:
-          type: object
-          example:
-            name:
-            type: string
-            example: Brussels
-            location:
-              type: object
-              example:
-                latitude:
-                  type: number
-                  example: 50.846557
-                longitude:
-                  type: number
-                  example: 4.351697
-        imagePreview:
+        photo:
           type: string
           example: image-9.jpg
-        isPremium:
-          type: boolean
-          example: false
-        isFavorite:
-          type: boolean
-          example: false
-        rating:
-          type: number
-          example: 3.2
         type:
           type: string
-          example: room
+          example: guitar
+        strings:
+          type: number
+          example: 4
+        article:
+          type: string
+          example: WGF23HF
         price:
           type: number
-          example: 52866
-        reviewCount:
-          type: number
-          example: 1
-        location:
-          type: object
-          example:
-            latitude:
-              type: number
-              example: 50.934361
-            longitude:
-              type: number
-              example: 6.943974
+          example: 100000
 
-    reviews:
-     type: array
-
-     properties:
-      text:
-        type: string
-        example: 'We loved it so much, the house, the view, the location just great.. Highly recommend :)'
-      date:
-        type: string
-        example: 2023-09-19T21:00:00.506Z
-      rating:
-        type: number
-        example: 3.2
-      user:
-        type: string
-        example: 7911a1e0-b7f6-4c18-a83b-b1af7212fccc
-
-    review:
-     type: object
-
-     properties:
-      text:
-        type: string
-        example: 'We loved it so much, the house, the view, the location just great.. Highly recommend :)'
-      date:
-        type: string
-        example: 2023-09-19T21:00:00.506Z
-      rating:
-        type: number
-        example: 3
-      user:
-        type: string
-        example: 7911a1e0-b7f6-4c18-a83b-b1af7212fccc
