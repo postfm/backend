@@ -10,11 +10,7 @@ import {
 } from '@nestjs/common';
 import { GuestRepository } from '../guest/guest.repository';
 import { GuestEntity } from '../guest/guest.entity';
-import {
-  AUTH_USER_EXISTS,
-  AUTH_USER_NOT_FOUND,
-  AUTH_USER_PASSWORD_WRONG,
-} from './auth-user.constants';
+import { AuthUser } from './auth-user.constants';
 import { LoginUserDto } from './dto/login.user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Token, TokenPayload, UserInterface } from '@app/types';
@@ -44,7 +40,7 @@ export class AuthUserService {
     const existUser = await this.guestRepository.findByEmail(email);
 
     if (existUser) {
-      throw new ConflictException(AUTH_USER_EXISTS);
+      throw new ConflictException(AuthUser.Exists);
     }
 
     const userEntity = await new GuestEntity(guest).setPassword(password);
@@ -58,11 +54,11 @@ export class AuthUserService {
     const existUser = await this.guestRepository.findByEmail(email);
 
     if (!existUser) {
-      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+      throw new NotFoundException(AuthUser.NotFound);
     }
 
     if (!(await existUser.comparePassword(password))) {
-      throw new UnauthorizedException(AUTH_USER_PASSWORD_WRONG);
+      throw new UnauthorizedException(AuthUser.PasswordWrong);
     }
 
     return existUser;
