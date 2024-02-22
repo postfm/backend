@@ -32,13 +32,7 @@ export class ProductsController {
   public async index(@Query() query: ProductQuery) {
     const productsWithPagination =
       await this.productsService.getAllProducts(query);
-    const result = {
-      ...productsWithPagination,
-      entities: productsWithPagination.entities.map((product) =>
-        product.toPOJO(),
-      ),
-    };
-    return fillDto(ProductWithPaginationRdo, result);
+    return fillDto(ProductWithPaginationRdo, productsWithPagination);
   }
 
   @Post('/')

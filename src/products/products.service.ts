@@ -13,7 +13,15 @@ export class ProductsService {
   public async getAllProducts(
     query?: ProductQuery,
   ): Promise<PaginationResult<ProductEntity>> {
-    return this.productRepository.find(query);
+    const productsWithPagination = this.productRepository.find(query);
+    const result = {
+      ...productsWithPagination,
+      entities: (await productsWithPagination).entities.map((product) =>
+        product.toPOJO(),
+      ),
+    };
+
+    return result;
   }
 
   public async createProducts(dto: CreateProductDto): Promise<ProductEntity> {
