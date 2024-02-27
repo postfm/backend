@@ -2,6 +2,9 @@ import { Expose } from 'class-transformer';
 
 export class ProductRdo {
   @Expose()
+  id: string;
+
+  @Expose()
   name: string;
 
   @Expose()

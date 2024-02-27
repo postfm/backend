@@ -31,6 +31,7 @@ export class AuthUserController {
     return fillDto(UserRdo, existUser.toPOJO());
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('validate/:token')
   public async validate(@Param('token') token: string) {
     const existsUser = await this.authUserService.validateUserToken(token);
