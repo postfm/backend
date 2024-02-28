@@ -1,3 +1,4 @@
+import { DefaultValue } from './product.constants';
 import { BasePostgresRepository } from '@app/core';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductEntity } from './product.entity';
@@ -6,10 +7,6 @@ import { PrismaClientService } from '@app/models';
 import { Prisma } from '@prisma/client';
 import { ProductQuery } from './query/product.query';
 import { PaginationResult } from '@app/types';
-import {
-  DEFAULT_SORTING_TYPE,
-  DEFAULT_SORT_DIRECTION,
-} from './product.constants';
 
 @Injectable()
 export class ProductRepository extends BasePostgresRepository<
@@ -95,10 +92,10 @@ export class ProductRepository extends BasePostgresRepository<
     const orderBy: Prisma.ProductsOrderByWithRelationInput = {};
     const sortingType = query?.sortingType
       ? query.sortingType
-      : DEFAULT_SORTING_TYPE;
+      : DefaultValue.SortType;
     const sortDirection = query?.sortDirection
       ? query.sortDirection
-      : DEFAULT_SORT_DIRECTION;
+      : DefaultValue.SortDirection;
 
     orderBy[sortingType] = sortDirection;
 

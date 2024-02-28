@@ -33,6 +33,7 @@ export class FileStoreService {
       const uploadDirectoryPath = this.getUploadDirectoryPath();
       const filename = randomUUID();
       const fileExtension = extension(file.mimetype);
+
       const destinationFile = this.getDestinationFilePath(
         `${filename}.${fileExtension}`,
       );

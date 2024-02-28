@@ -4,7 +4,9 @@ import {
   Body,
   Controller,
   Delete,
+  HttpStatus,
   Param,
+  ParseFilePipeBuilder,
   Post,
   Query,
   UploadedFile,
@@ -20,7 +22,10 @@ export class FileStoreController {
 
   @Post('/upload')
   @UseInterceptors(FileInterceptor('photo'))
-  public async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  public async uploadFile(
+    @UploadedFile()
+    file: Express.Multer.File,
+  ) {
     return this.fileStoreService.saveFile(file);
   }
 

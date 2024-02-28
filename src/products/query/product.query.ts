@@ -1,18 +1,13 @@
 import { Transform } from 'class-transformer';
 import { IsArray, IsIn, IsNumber, IsOptional, IsUUID } from 'class-validator';
-import {
-  DEFAULT_PAGE_COUNT,
-  DEFAULT_POST_COUNT_LIMIT,
-  DEFAULT_SORTING_TYPE,
-  DEFAULT_SORT_DIRECTION,
-} from '../product.constants';
 import { SortDirection } from '@app/types';
+import { DefaultValue } from '../product.constants';
 
 export class ProductQuery {
-  @Transform(({ value }) => +value || DEFAULT_POST_COUNT_LIMIT)
+  @Transform(({ value }) => +value || DefaultValue.PostCountLimit)
   @IsNumber()
   @IsOptional()
-  public limit = DEFAULT_POST_COUNT_LIMIT;
+  public limit = DefaultValue.PostCountLimit;
 
   @IsUUID('all', { each: true })
   @IsArray()
@@ -23,9 +18,9 @@ export class ProductQuery {
   @IsOptional()
   public sortDirection: SortDirection;
 
-  @Transform(({ value }) => +value || DEFAULT_PAGE_COUNT)
+  @Transform(({ value }) => +value || DefaultValue.PageCount)
   @IsOptional()
-  public page: number = DEFAULT_PAGE_COUNT;
+  public page: number = DefaultValue.PageCount;
 
   @IsOptional()
   public sortingType: string;

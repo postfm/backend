@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "name": "John",
-  "email": "kek11@notfound.local",
+  "email": "kek01@notfound.local",
   "password": "123456"
 }
 
@@ -54,12 +54,12 @@ Content-Type: application/json
 Authorization: Bearer {{AToken}}
 
 {
-  "name": "golden",
+  "name": "golden guitar",
   "description": "Usque clementia talio dolorum stipes tredecim veniam. Tonsor absque volutabrum adulescens thymum demonstro degusto. Comes maiores inventore usus.\nVelit cuius ascit solium. Terminatio repellendus curatio amo. Usitas sol curto pectus absens provident ultio.\nPossimus crustulum stella delibero versus curis varietas usus. Maxime vulpes patria arcesso delicate decipio venia cupressus. Cilicium illo demum canonicus.",
   "photo": "../../../../src/assets/catalog-product-0.png",
-  "type": "акустика",
+  "type": "guitar",
   "article": "3j7xNF1eQVg11RN0000",
-  "strings": 12,
+  "strings": 4,
   "price": 1000000
 }
 
