@@ -102,12 +102,15 @@ export class ProductRepository extends BasePostgresRepository<
 
     orderBy[sortingType] = sortDirection;
 
-    if (query?.type) {
-      where.type = query.type;
+    if (query?.filterType) {
+      where.type = { in: [...query.filterType.split(',')] };
+      console.log(where.type);
     }
 
-    if (query?.strings) {
-      where.strings = query.strings;
+    if (query?.filterStrings) {
+      where.strings = {
+        in: [...query.filterStrings.split(',').map((item) => +item)],
+      };
     }
 
     const [records, postCount] = await Promise.all([

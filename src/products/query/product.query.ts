@@ -31,8 +31,8 @@ export class ProductQuery {
   public sortingType: string;
 
   @IsOptional()
-  public type: string;
+  public filterType: string;
 
   @IsOptional()
-  public strings: number;
+  public filterStrings: string;
 }
