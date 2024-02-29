@@ -3,18 +3,14 @@ import { Express } from 'express';
 import {
   Body,
   Controller,
-  Delete,
-  HttpStatus,
-  Param,
-  ParseFilePipeBuilder,
   Post,
-  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileStoreService } from './file-store.service';
 import { FileDeleteDto } from './dto/file-delete.dto';
+import { FileTypeValidationPipe } from 'libs/pipes/file-type-validation.pipe';
 
 @Controller('files')
 export class FileStoreController {
@@ -23,7 +19,7 @@ export class FileStoreController {
   @Post('/upload')
   @UseInterceptors(FileInterceptor('photo'))
   public async uploadFile(
-    @UploadedFile()
+    @UploadedFile(FileTypeValidationPipe)
     file: Express.Multer.File,
   ) {
     return this.fileStoreService.saveFile(file);
