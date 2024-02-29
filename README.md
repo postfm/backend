@@ -71,3 +71,43 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Руководство по запуску приложения
+
+I. Запуск Docker'a.
+
+1. С помощью файла docker-compose.dev.yml запускаем контейнер. Он находится здесь: \guitar-shop\guitar-shop-backend\src\
+
+II. Запуск backend'a. Он находится здесь: \guitar-shop\guitar-shop-backend
+
+1. Открываем backend как отдельный проект.
+
+2. Устанавливаем зависимости npm i
+
+3. Командой npm run db:lint запускаем проверку схемы Prisma
+
+4. Командой npm run db:migrate создаем базу данных PostgreSQL
+
+5. Командой npm run db:generate генерируем типы для Prisma
+
+6. Командой npm run db:seed наполняем базу данных моковыми данными
+
+7. Командой npm run start:dev запускаем backend.
+
+8. Логин для базы: admin
+
+9. Пароль для базы: admin
+
+10. Запускается на порту 4000.
+
+III. Запуск frontend'a. Он находится здесь: \guitar-shop\guitar-shop-frontend
+
+1. Открываем frontend как отдельный проект.
+
+2. Устанавливаем зависимости npm i.
+
+3. Командой npm run start запускаем frontend.
+
+4. Заходим на страницу регистрации и регистрируем нового пользователя. Например. Имя: keks; Email: keks@gmail.com. Пароль: 123123.
+
+5. На странице входа вводим email и пароль только что зарегистрированного пользователя.
