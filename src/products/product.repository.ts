@@ -101,7 +101,6 @@ export class ProductRepository extends BasePostgresRepository<
 
     if (query?.filterType) {
       where.type = { in: [...query.filterType.split(',')] };
-      console.log(where.type);
     }
 
     if (query?.filterStrings) {
